@@ -11,7 +11,26 @@ build:
     pull: true
     
   ci:   
-    - echo "base image"
+    - python -V
+    - pip --version
+    - aws --version #1.16.81
+    - eb --version #3.14.8
+    - gcloud version #228.0.0
+    - jfrog --version #1.20.1
+    - kubectl version --client #1.13.1
+    - packer version #1.3.3
+    - ansible --version #2.7.5
+    - terraform --version #0.11.11
+    - apt search azure-cli
+    - az --version #2.0.54
     - EXPECTED_DOCKER_VERSION="18.03.1-ce"
     - |
       [ $(docker version --format {{.Server.Version}}) == "$EXPECTED_DOCKER_VERSION" ]
+    - docker pull shippabledocker/sample_node_pvt:ecr
+ 
+integrations:
+  hub:
+
+ #Docker integration
+    - integrationName: ship-docker
+      type: dockerRegistryLogin
